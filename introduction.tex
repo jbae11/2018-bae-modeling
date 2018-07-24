@@ -1,0 +1,69 @@
+
+\section{Introduction}
+
+\glspls{MSR} are difficult to model in fuel cycle
+simulations due to their continuous reprocessing, where
+there is a continuous flow of materials in and out of
+the reactors. Many modules have been developed to model
+continuous reprocessing in an \gls{MSR}. 
+
+
+
+\subsection{\Cyclus}
+
+\Cyclus is an agent-based fuel cycle simulation framework 
+\cite{huff_fundamental_2016}, which means 
+that each reactor, reprocessing plant, and fuel fabrication plant is modeled as an agent.
+A \Cyclus simulation contains prototypes, which are fuel cycle facilities with
+pre-defined parameters, that are deployed in the simulation as \texttt{facility} agents.
+Encapsulating the \texttt{facility} agents are the \texttt{institution} and \texttt{region}.
+A \texttt{region} agent holds a set of \texttt{institution}s.
+An \texttt{institution} agent can deploy or decommission \texttt{facility} agents.
+The \texttt{institution} agent is part of a \texttt{region} agent,
+which can contain multiple \texttt{institution} agents. Several versions of \texttt{Institution}
+and \texttt{region} exist, varying in complexity and functions \cite{huff_extensions_2014}.
+ \texttt{DeployInst} is used as the institution archetype for this work, where the institution
+deploys agents at user-defined timesteps.
+
+At each timestep (one month),
+agents make requests for materials or bid to supply them and exchange
+with one another. A market-like mechanism called the dynamic resource exchange
+\cite{gidden_agent-based_2015} governs the exchanges.
+Each material resource has a quantity, composition, name, and a unique identifier
+for output analysis. The timestep execution in \Cyclus follows 
+\texttt{Build, Tick,} \gls{DRE}, \texttt{Tock, and Decommission}, as illustrated in
+figure \ref{fig:time}. The \texttt{Tick}, and \texttt{Tock} phases are for
+each agent to perform actions, such as transmutation, separation, or generation
+of materials before and after the market exchange phase.
+
+\begin{figure}[h]
+\centering
+\scalebox{0.7}{
+\begin{tikzpicture}[node distance=1.5cm]
+\node (Build) [process] {Build (kernel)};
+\node (Tick) [process, below of=Build] {Tick (agent)};
+\node (DRE) [process, below of=Tick]{Dynamic Resource Exchange (kernel) };
+\node (Tock) [process, below of=DRE]{Tock (agent)};
+\node (Decom) [process, below of=Tock] {Decommission (kernel)};
+
+\draw [arrow] (Build) -- (Tick); 
+\draw [arrow] (Tick) -- (DRE);
+\draw [arrow] (DRE) -- (Tock);
+\draw [arrow] (Tock) -- (Decom);
+\end{tikzpicture}
+}
+\caption{\Cyclus timestep execution steps.}
+\label{fig:time}
+\end{figure}
+
+The modularity of \Cyclus allows a low barrier of
+entry for developers, since developers can create an
+archetype (e.g. Reactor module, Reprocessing module)
+without extensive knowledge of the \Cyclus framework.
+
+\subsection{Saltproc}
+Saltproc is an external python driver developed to
+model batch-wise reprocessing in \glss{MSR}. The code
+repeatedly runs SERPENT, performs material operations (e.g. reprocessing,
+inflow of fertile material), and saves all material flow
+and k-eff values in a HDF5 database. 

@@ -1,0 +1,20 @@
+There's a need to model MSRs in a fuel cycle simulation
+
+Their behavior is weird, and material flow not discrete.
+
+Continuous reprocessing makes depletion calculations difficult
+
+Solution:
+    Create an already confirmed design / parameters
+    Run high-fidelity MSR simulation and save material flow in db
+    Use the db to mimic MSR behavior in large-scale fuel cycle simulation
+    Cyclus allows this to happen because it's an agent-based simulation
+
+Flowcharts:
+    Saltproc flow chart
+    MSR material flow chart (Cyclus module flowchart - interactions with the market)
+
+Results:
+    Behaves exactly the same (1 reactor - 1 sink - sources simulation)
+    Deployment into larger transition-scenarios sort of simulation
+        reprocessing and all that

@@ -1,0 +1,64 @@
+\documentclass{elsarticle}
+
+\journal{Annals of Nuclear Energy}
+%%%% packages and definitions (optional)
+\newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
+\newcommand{\Cycamore}{\textsc{Cycamore}\xspace}
+
+\usepackage{tabularx}
+\usepackage[acronym,toc]{glossaries}
+\include{acros}
+\makeglossaries
+\usepackage{xspace}
+
+\usepackage{caption}
+\newcolumntype{b}{X}
+\newcolumntype{s}{>{\hsize=.5\hsize}X}
+\newcolumntype{m}{>{\hsize=.75\hsize}X}
+
+
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows}
+\tikzstyle{process} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=blue!30]
+\tikzstyle{object} = [ellipse, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\usetikzlibrary{positioning, arrows, decorations, shapes }%
+
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Modeling High-fidelity Molten Salt Reactor in a Large-Scale Fuel Cycle Simulation}
+\author{Jin Whan Bae$^{1}$, Joshua L. Peterson-Droogh$^{2}$, Kathryn Huff$^{1}$}
+\address{$^{1}$Dept. of Nuclear, Plasma, and Radiological Engineering, University of Illinois at Urbana-Champaign, Urbana, IL \\ $^{2}$Oak Ridge National Laboratory, Oak Ridge, TN }
+
+\begin{abstract}
+A coupling module for a high-fidelity depletion code (SERPENT) and
+fuel cycle simulation code (Cyclus) for \gls{MSR} modeling is developed.
+An external python driver
+called Saltproc is developed to perform batch-wise reprocessing with
+SERPENT. The output data (.hdf5) from a Saltproc run contains the
+depletion calculation results and material flow in and out of the
+reactor. The output data is then interpreted by the Cyclus connector module,
+which then mimics the material flow in and out of the reactor
+previously calculated by the Saltproc run. This method provides
+a rapid and accurate way of modeling Molten Salt Reactors in a
+large-scale fuel cycle simulation. 
+\end{abstract}
+
+\end{frontmatter}
+
+	
+\input{introduction}
+\input{methods}
+\input{diff}
+\input{results}
+\input{discussion}
+\input{acks}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{bibliography}
+
+
+\end{document}
