@@ -1,11 +1,13 @@
 
 \section{Introduction}
 
-\glspls{MSR} are difficult to model in fuel cycle
-simulations due to their continuous reprocessing, where
+\glspl{MSR} are difficult to model in fuel cycle
+simulations due to their continuous reprocessing, and material
+flow, where
 there is a continuous flow of materials in and out of
 the reactors. Many modules have been developed to model
-continuous reprocessing in an \gls{MSR}. 
+continuous reprocessing in an \gls{MSR}, but have been limited
+to single-reactor models. 
 
 
 
@@ -63,7 +65,7 @@ without extensive knowledge of the \Cyclus framework.
 
 \subsection{Saltproc}
 Saltproc is an external python driver developed to
-model batch-wise reprocessing in \glss{MSR}. The code
+model batch-wise reprocessing in \glspl{MSR}. The code
 repeatedly runs SERPENT, performs material operations (e.g. reprocessing,
 inflow of fertile material), and saves all material flow
 and k-eff values in a HDF5 database. 
